@@ -1,0 +1,31 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+}
+
+.coordinate-container {
+    margin-top: 50px;
+}
+
+#coordinateImage {
+    margin-top: 20px;
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+}
+
+#temperatureDisplay {
+    margin: 10px 0;
+}
+
+.season-buttons {
+    margin: 20px 0;
+}
+
+.season-btn {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
