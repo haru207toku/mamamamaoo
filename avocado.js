@@ -95,21 +95,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 imgUrl = 'images/ノースリ.png';
                 coordinateText = 'とにかく涼しく!UV対策忘れずに!';
             }
-        } else if (season === 'autumn') {
+　　　　} else if (season === 'autumn') {
             if (avgTemp < 15) {
-                imgUrl = 'images/autumn_cool.jpg';
-                coordinateText = '秋の涼しい日のコーディネート';
+                imgUrl = 'ニットカーデ.jpg';
+                coordinateText = '季節の変わり目は油断禁物。温度調節できる格好がベスト！';
+            } else if (avgTemp < 18) {
+                    imgUrl = 'パーカ.jpg';
+                    coordinateText = '秋の涼しい日のコーディネート';
+            } else if (avgTemp < 20) {                   
+                 imgUrl = '白ワンピ.jpg';
+                    coordinateText = '一日を通して過ごしやすい気温！適度な肌みせで抜け感を！';
+                
             } else {
-                imgUrl = 'images/autumn_warm.jpg';
-                coordinateText = '秋の暖かい日のコーディネート';
+                imgUrl = '黒七分.jpg';
+                coordinateText = 'ハーフスリーブでもハリのある素材で秋感を出すのがおすすめ';
             }
+
         } else if (season === 'winter') {
-            if (avgTemp < 5) {
-                imgUrl = 'images/チェックコート.png';
-                coordinateText = '冬の寒い日のコーディネート';
+            if (avgTemp < 5 ) {
+                imgUrl = 'チェックコート.jpg';
+                coordinateText = '足元、首元は念入りに防寒対策を！手袋帽子もあるとなお良し！';
             } else {
-                imgUrl = 'images/ボアフリース.png';
-                coordinateText = '冬の涼しい日のコーディネート';
+                imgUrl = 'ボアフリース.jpg';
+                coordinateText = 'さわやかなインナーで春を先取り！まだまだ寒いので厚手アウターとマフラー必須';
             }
         }
 
@@ -118,3 +126,10 @@ document.addEventListener('DOMContentLoaded', () => {
         coordinateImage.alt = coordinateText;
     }
 });
+
+
+
+
+
+
+            
