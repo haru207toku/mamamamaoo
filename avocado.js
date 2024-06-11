@@ -1,74 +1,120 @@
-document.getElementById('getWeatherBtn').addEventListener('click', getWeather);
+document.addEventListener('DOMContentLoaded', () => {
+    const getWeatherBtn = document.getElementById('getWeatherBtn');
+    const temperatureDisplay = document.getElementById('temperatureDisplay');
 
-async function getWeather() {
-    const apiKey = '86808765a6e53f486acc76859059185d'; // APIキーを設定
-    const city = 'Tokyo'; // 都市名を設定（必要に応じて変更）
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
-
-    try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        const temp = data.main.temp;
-
-        document.getElementById('temperatureDisplay').innerText = `現在の気温: ${temp}°C`;
-        document.getElementById('temperatureDisplay').dataset.temp = temp; // 気温をデータ属性に保存
-    } catch (error) {
-        console.error('エラーが発生しました:', error);
-    }
-}
-
-document.querySelectorAll('.season-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        const tempDisplay = document.getElementById('temperatureDisplay');
-        const temperature = tempDisplay.dataset.temp;
-        if (!temperature) {
-            alert('まず気温を取得してください');
-            return;
-        }
-        const season = this.getAttribute('data-season');
-        displayCoordinate(temperature, season);
+    getWeatherBtn.addEventListener('click', () => {
+        getWeather();
     });
-});
 
-function displayCoordinate(temperature, season) {
-    const imgElement = document.getElementById('coordinateImage');
-    let imgUrl = '';
-    let coordinateText = '';
+    async function getWeather() {
+        const apiKey = '86808765a6e53f486acc76859059185d';
+        const city = 'Tokyo';  // 必要に応じて都市名を変更してください
+        const urlCurrent = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=ja`;
+        const urlForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric&lang=ja`;
 
-    if (season === 'spring') {
-        if (temperature < 15) {
-            imgUrl = 'spring_cool.jpg';
-            coordinateText = '春の涼しい日のコーディネート';
-        } else {
-            imgUrl = 'spring_warm.jpg';
-            coordinateText = '春の暖かい日のコーディネート';
-        }
-    } else if (season === 'summer') {
-        if (temperature < 25) {
-            imgUrl = 'summer_cool.jpg';
-            coordinateText = '夏の涼しい日のコーディネート';
-        } else {
-            imgUrl = 'summer_hot.jpg';
-            coordinateText = '夏の暑い日のコーディネート';
-        }
-    } else if (season === 'autumn') {
-        if (temperature < 15) {
-            imgUrl = 'autumn_cool.jpg';
-            coordinateText = '秋の涼しい日のコーディネート';
-        } else {
-            imgUrl = 'autumn_warm.jpg';
-            coordinateText = '秋の暖かい日のコーディネート';
-        }
-    } else if (season === 'winter') {
-        if (temperature < 0) {
-            imgUrl = 'winter_cold.jpg';
-            coordinateText = '冬の寒い日のコーディネート';
-        } else {
-            imgUrl = 'winter_cool.jpg';
-            coordinateText = '冬の涼しい日のコーディネート';
+        try {
+            const [responseCurrent, responseForecast] = await Promise.all([
+                fetch(urlCurrent),
+                fetch(urlForecast)
+            ]);
+            const dataCurrent = await responseCurrent.json();
+            const dataForecast = await responseForecast.json();
+
+            if (dataCurrent.cod === 200 && dataForecast.cod === "200") {
+                const currentTemp = dataCurrent.main.temp;
+                const tempMin = dataForecast.list[0].main.temp_min;
+                const tempMax = dataForecast.list[0].main.temp_max;
+                const avgTemp = (tempMin + tempMax) / 2;
+                const weather = dataCurrent.weather[0].description;
+                const icon = dataCurrent.weather[0].icon;
+                const precipitationProb = dataForecast.list[0].pop * 100;
+                const windSpeed = dataCurrent.wind.speed;
+                const uvIndex = dataCurrent.uvi; // UVインデックスが含まれている場合
+
+                temperatureDisplay.innerHTML = `
+                    <img src="http://openweathermap.org/img/wn/${icon}.png" alt="天気アイコン">
+                   <p> 現在の気温: ${currentTemp}°C</p>
+                    <p>平均気温: ${avgTemp.toFixed(1)}°C</p>
+                    <p>降水確率: ${precipitationProb}%   風速: ${windSpeed} m/s</p>
+                `;
+                temperatureDisplay.dataset.temp = avgTemp.toFixed(1); // 平均気温をデータ属性に保存
+
+                // 日付から季節を判断
+                const currentDate = new Date();
+                const month = currentDate.getMonth() + 1;
+                let season = '';
+
+                if (month >= 3 && month <= 5) {
+                    season = 'spring';
+                } else if (month >= 6 && month <= 8) {
+                    season = 'summer';
+                } else if (month >= 9 && month <= 11) {
+                    season = 'autumn';
+                } else {
+                    season = 'winter';
+                }
+
+                showCoordinate(season, parseFloat(avgTemp));
+            } else {
+                temperatureDisplay.innerHTML = `<p>天気情報を取得できませんでした: ${dataCurrent.message || dataForecast.message}</p>`;
+            }
+        } catch (error) {
+            temperatureDisplay.innerHTML = `<p>天気情報の取得中にエラーが発生しました。</p>`;
+            console.error('Error fetching weather data:', error);
         }
     }
 
-    document.getElementById('coordinateInfo').innerText = coordinateText;
-    imgElement.src = imgUrl;
-}
+    function showCoordinate(season, avgTemp) {
+        const coordinateInfo = document.getElementById('coordinateInfo');
+        const coordinateImage = document.getElementById('coordinateImage');
+        let imgUrl = '';
+        let coordinateText = '';
+
+        // シーズンごとのコーディネート情報を表示
+        if (season === 'spring') {
+            if (avgTemp < 15) {
+                imgUrl = 'images/パーカ.png';
+                coordinateText = '日中は過ごしやすいが、朝晩は冷え込むので軽めのアウターがあると◎';
+            } else if(avgTemp < 20) {
+                imgUrl = 'images/デニムシャツ.png';
+                coordinateText = '少しずつあったかくなってきたのでニットなら一枚で過ごせそう！';
+            }
+              else {
+                imgUrl = 'images/ピンクT.png';
+                coordinateText = '薄手の長袖一枚か、半袖インナーにシャツ羽織がおすすめ！';
+            }
+            
+        } else if (season === 'summer') {
+            if (avgTemp < 27) {
+                imgUrl = 'images/シア―.png';
+                coordinateText = 'サンダルデビュー！蒸し暑い時期、風通しの良い服を！';}
+            else if (avgTemp < 30) {
+                imgUrl = 'images/夏ワンピ.png';
+                coordinateText = '冷房対策で羽織を持っておくと便利！';
+            } else {
+                imgUrl = 'images/ノースリ.png';
+                coordinateText = 'とにかく涼しく!UV対策忘れずに!';
+            }
+        } else if (season === 'autumn') {
+            if (avgTemp < 15) {
+                imgUrl = 'images/autumn_cool.jpg';
+                coordinateText = '秋の涼しい日のコーディネート';
+            } else {
+                imgUrl = 'images/autumn_warm.jpg';
+                coordinateText = '秋の暖かい日のコーディネート';
+            }
+        } else if (season === 'winter') {
+            if (avgTemp < 5) {
+                imgUrl = 'images/チェックコート.png';
+                coordinateText = '冬の寒い日のコーディネート';
+            } else {
+                imgUrl = 'images/ボアフリース.png';
+                coordinateText = '冬の涼しい日のコーディネート';
+            }
+        }
+
+        coordinateInfo.innerHTML = coordinateText;
+        coordinateImage.src = imgUrl;
+        coordinateImage.alt = coordinateText;
+    }
+});
