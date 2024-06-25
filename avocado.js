@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 coordinateText = '季節の変わり目は油断禁物。温度調節できる格好がベスト！';
             } else if (avgTemp < 18) {
                     imgUrl = 'パーカ.jpg';
-                    coordinateText = '秋の涼しい日のコーディネート';
+                    coordinateText = 'ファッションの秋！色や素材で楽しもう❤';
             } else if (avgTemp < 20) {                   
                  imgUrl = '白ワンピ.jpg';
                     coordinateText = '一日を通して過ごしやすい気温！適度な肌みせで抜け感を！';
