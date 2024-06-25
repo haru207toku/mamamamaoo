@@ -70,11 +70,13 @@ document.addEventListener('DOMContentLoaded', () => {
         let imgUrl = '';
         let coordinateText = '';
 
-         // シーズンごとのコーディネート情報を表示
-        if (season === 'spring') {
+
+
+　　　　　// シーズンごとのコーディネート情報を表示
+         if (season === 'spring') {
             if (avgTemp < 15) {
                 imgUrl = 'images/パーカ.png';
-                coordinateText = '日中は過ごしやすいが、朝晩は冷え込むので軽めのアウターがあると◎';
+                coordinateText = '日中は過ごしやすいが、朝晩は冷え込むので軽めのアウターがあると◎https://zozo.jp/search/?p_keyv=%83X%83E%83F%83b%83g%83p%81%5B%83J%81%5B';
             } else if(avgTemp < 20) {
                 imgUrl = 'images/デニムシャツ.png';
                 coordinateText = '少しずつあったかくなってきたのでニットなら一枚で過ごせそう！';
@@ -83,6 +85,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 imgUrl = 'images/ピンクT.png';
                 coordinateText = '薄手の長袖一枚か、半袖インナーにシャツ羽織がおすすめ！春っぽい色を取り入れよう！';
             }
+
+         
+            
             
         } else if (season === 'summer') {
             if (avgTemp < 27) {
