@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let imgUrl = '';
         let coordinateText = '';
 
-        // シーズンごとのコーディネート情報を表示
+         // シーズンごとのコーディネート情報を表示
         if (season === 'spring') {
             if (avgTemp < 15) {
                 imgUrl = 'images/パーカ.png';
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
               else {
                 imgUrl = 'images/ピンクT.png';
-                coordinateText = '薄手の長袖一枚か、半袖インナーにシャツ羽織がおすすめ！';
+                coordinateText = '薄手の長袖一枚か、半袖インナーにシャツ羽織がおすすめ！春っぽい色を取り入れよう！';
             }
             
         } else if (season === 'summer') {
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 coordinateText = '冷房対策で羽織を持っておくと便利！';
             } else {
                 imgUrl = 'images/ノースリ.png';
-                coordinateText = 'とにかく涼しく!UV対策忘れずに!';
+                coordinateText = 'とにかく涼しく!日傘・日焼け止めなどのUV対策忘れずに!';
             }
 　　　　} else if (season === 'autumn') {
             if (avgTemp < 15) {
@@ -101,10 +101,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 coordinateText = '季節の変わり目は油断禁物。温度調節できる格好がベスト！';
             } else if (avgTemp < 18) {
                     imgUrl = 'パーカ.jpg';
-                    coordinateText = 'ファッションの秋！色や素材で楽しもう❤';
+                    coordinateText = 'ファッションの秋！色や素材で楽しもう❤ベロア素材がおすすめ！';
             } else if (avgTemp < 20) {                   
                  imgUrl = '白ワンピ.jpg';
-                    coordinateText = '一日を通して過ごしやすい気温！適度な肌みせで抜け感を！';
+                    coordinateText = '一日を通して過ごしやすい気温！適度な肌みせで抜け感を！ブレスレットやネックレスを足しておしゃれしよう！';
                 
             } else {
                 imgUrl = '黒七分.jpg';
@@ -132,4 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-            
+
+        
+     
