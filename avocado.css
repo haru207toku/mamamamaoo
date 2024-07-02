@@ -1,31 +1,85 @@
+
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #ffeaff;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #ffc0cb, #ff99cc);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 .coordinate-container {
-    margin-top: 50px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
 }
 
-#coordinateImage {
-    margin-top: 20px;
-    width: 300px;
-    height: 300px;
-    object-fit: cover;
+h1 {
+    font-size: 2em;
+    color: #ff66b2;
+    margin-bottom: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #temperatureDisplay {
-    margin: 10px 0;
+    font-size: 1em;
+    color: #333;
+    margin-bottom: 20px;
 }
 
-.season-buttons {
-    margin: 20px 0;
+#coordinateWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position:relative;
 }
 
-.season-btn {
-    margin: 5px;
+#coordinateInfo {
+    font-size: 1em;
+    color: #666;
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-right: 20px;
+    position:relative;
+    width: 70%;
+    
+}
+
+#coordinateInfo:after {
+    content: '';
+    position: absolute;
+    bottom: -20px; /* 下に配置 */
+    left: 50%; /* 左右中央に配置 */
+    transform: translateX(-50%); /* 中央揃え */
+    border-width: 10px;
+    border-style: solid;
+    border-color: white transparent transparent transparent; /* 下向きの矢印にする */
+}
+
+#coordinateImage {
+    width: 30%;
+    height: auto;
+    margin-top: 10px
+}
+
+button {
+    background: #ff66b2;
+    color: white;
+    border: none;
     padding: 10px 20px;
-    font-size: 16px;
+    border-radius: 5px;
+    font-size: 1em;
     cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #ff3385;
 }
