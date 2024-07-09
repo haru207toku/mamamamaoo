@@ -82,17 +82,6 @@ h1 {
     margin-top: 10px
 }
 
-button {
-    background: #ff66b2;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
 .glitter-background {
     position: absolute;
     top: 0;
